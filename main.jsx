@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var ImageGrid = React.createClass({
     getDefaultProps: function(){
@@ -8,8 +8,8 @@ var ImageGrid = React.createClass({
             imgMaxWidth: 300,
             imgMinWidth: 200,
             style: {
-                position: "absolute",
-                left: "auto",
+                position: 'absolute',
+                left: 'auto',
                 top: 0,
             },
         };
@@ -23,10 +23,10 @@ var ImageGrid = React.createClass({
         // Primer renderizado
         if (! this.isMounted()){
             var style = React.addons.update(this.props.style,
-                                            {position: {$set: "relative"}});
+                                            {position: {$set: 'relative'}});
             return(
-                <div id="imageGrid" style={style}
-                     ref="divNode">
+                <div id='imageGrid' style={style}
+                     ref='divNode'>
                 </div>
             );
         };
@@ -55,8 +55,8 @@ var ImageGrid = React.createClass({
                               />;
         });
         return(
-            <div id="imageGrid"
-                 ref="divNode"
+            <div id='imageGrid'
+                 ref='divNode'
                  style={this.props.style}>
                 {imageList}
             </div>
@@ -69,19 +69,19 @@ var ImageGrid = React.createClass({
     },
     componentDidMount: function(){
         this.getDivWidth();
-        window.addEventListener("resize", this.getDivWidth);
+        window.addEventListener('resize', this.getDivWidth);
     },
 });
 
 var ImageCell = React.createClass({
     getDefaultProps:function(){
         return{
-            src: "http://placehold.it/200x200",
+            src: 'http://placehold.it/200x200',
             width: 200,
             height: 200,
-            href: "#",
-            title: "Placeholder text",
-            subtitle: "something",
+            href: '#',
+            title: 'Placeholder text',
+            subtitle: 'something',
             imgCoords: {x: 0, y: 0},
         };
     },
@@ -98,23 +98,23 @@ var ImageCell = React.createClass({
                          },
         };
         var imgCoords = this.props.imgCoords;
-        var wrapProps = {style: { position: "absolute",
+        var wrapProps = {style: { position: 'absolute',
                                   left: imgCoords.x * this.props.width,
                                   top: imgCoords.y * this.props.height,
-                                  cursor: "pointer",
+                                  cursor: 'pointer',
         },};
         var captionProps = {
             
         };
         return(
             
-            <div className="imageCellWrap"
+            <div className='imageCellWrap'
                  {...wrapProps}
                  onClick={this.onClickHandler}
                  >
-                <img className="imageCell"
+                <img className='imageCell'
                      {...imgProps} />
-                <div className="caption"
+                <div className='caption'
                      {...captionProps}>
                     <p>{this.props.title}</p>
                     <span>{this.props.subtitle}</span>
