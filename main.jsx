@@ -16,13 +16,11 @@ var ImageGrid = React.createClass({
     },
     getDefaultProps: function(){
         return{
-            imageRatio: 1
+            imageRatio: 1,
+            height: 'auto'
         };
     },
     render: function(){
-        var gridStyle = {
-            position: 'absolute'
-        };
         var data = this.props.data;
         var gridWidth = this.props.width;
         var gridHeight = this.props.height;
@@ -41,7 +39,7 @@ var ImageGrid = React.createClass({
                 x: i*imgWidth,
                 y: j*imgHeight
             };
-            if (position.y + imgHeight > gridHeight){
+            if (gridHeight!== 'auto' && position.y + imgHeight > gridHeight){
                 break;
             };
             var imgKey = 'img-' + k;
@@ -53,6 +51,17 @@ var ImageGrid = React.createClass({
             };
             var component =  <ImageCell {...imageProps} {...data[k]}/>;
             imageList.push(component);
+        };
+        var gridHeightStyle
+        if(gridHeight ==='auto')
+            gridHeightStyle = imgHeight*Math.ceil(data.length/numColumns);
+        else
+            gridHeightStyle = gridHeight;
+
+        var gridStyle = {
+            position: 'relative',
+            width: gridWidth,
+            height: gridHeightStyle
         };
 
         return (
