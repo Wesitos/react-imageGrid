@@ -25,6 +25,7 @@ var ImageGrid = React.createClass({
         };
         var data = this.props.data;
         var gridWidth = this.props.width;
+        var gridHeight = this.props.height;
         var imgMaxWidth = this.props.imageMaxWidth;
         var imgMinWidth = this.props.imageMinWidth;
         var numColumns = Math.floor(gridWidth/ imgMinWidth);
@@ -32,22 +33,27 @@ var ImageGrid = React.createClass({
         if (imgWidth>imgMaxWidth) imgWidth = imgMaxWidth;
         var imgHeight = imgWidth*this.props.imageRatio;
 
-        var i = 0;
-        var j = 0;
-        var imageList = data.map(function(item){
-            if (j == numColumns){ j=0; i++;};
+        var imageList = [];
+        for (var k = 0; k < data.length; k++){
+            var i = k % numColumns;
+            var j = Math.floor(k/numColumns);
             var position = {
-                x: j*imgWidth,
-                y: i*imgHeight
+                x: i*imgWidth,
+                y: j*imgHeight
             };
-            j++;
+            if (position.y + imgHeight > gridHeight){
+                break;
+            };
+            var imgKey = 'img-' + k;
             var imageProps = {
+                key: imgKey,
                 width: imgWidth,
                 height: imgHeight,
                 position: position
             };
-            return <ImageCell {...imageProps} {...item}/>;
-        });
+            var component =  <ImageCell {...imageProps} {...data[k]}/>;
+            imageList.push(component);
+        };
 
         return (
             <div style={gridStyle}>
