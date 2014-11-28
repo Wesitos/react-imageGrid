@@ -90,10 +90,14 @@ var ImageCell = React.createClass({
     onMouseLeaveHandler: function(event){
         this.refs.overLayer.getDOMNode().style.opacity = 0;
     },
+    componentDidMount: function(){
+        var self = this;
+        setTimeout(function(){ self.forceUpdate();}, 0);
+    },
     render: function(){
         var wrapStyle = {
             position: "absolute",
-            left: this.props.position.x,
+            left: (this.isMounted()?this.props.position.x:0),
             top: this.props.position.y,
             width: this.props.width,
             height: this.props.height,
@@ -129,8 +133,8 @@ var ImageCell = React.createClass({
             left: 0,
             width: this.props.width,
             height: this.props.height,
-            opacity: 0.4,
-            filter: 'alpha(opacity=40)'
+            opacity: 0.6,
+            filter: 'alpha(opacity=60)'
         };
         var captionStyle = {
             position: 'absolute',
