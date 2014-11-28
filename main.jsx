@@ -27,6 +27,7 @@ var ImageGrid = React.createClass({
         var imgMaxWidth = this.props.imageMaxWidth;
         var imgMinWidth = this.props.imageMinWidth;
         var numColumns = Math.floor(gridWidth/ imgMinWidth);
+        if (numColumns==0) numColumns = 1;
         var imgWidth = gridWidth/numColumns;
         if (imgWidth>imgMaxWidth) imgWidth = imgMaxWidth;
         var imgHeight = imgWidth*this.props.imageRatio;
