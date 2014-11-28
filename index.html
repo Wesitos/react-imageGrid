@@ -15,7 +15,8 @@
     request.onload = function() {
       if (this.status >= 200 && this.status < 400){
         var data = JSON.parse(this.response);
-        React.render(<ImageGrid data={data}/>,
+        React.render(<ImageGrid data={data} width={800} height={1000}
+                                imageMaxWidth={300} imageMinWidth={200}/>,
                      document.getElementById("container"));
       };
     };
