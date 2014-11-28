@@ -28,7 +28,6 @@ var ImageGrid = React.createClass({
         var imgMaxWidth = this.props.imageMaxWidth;
         var imgMinWidth = this.props.imageMinWidth;
         var numColumns = Math.floor(gridWidth/ imgMinWidth);
-        console.log(numColumns);
         var imgWidth = gridWidth/numColumns;
         if (imgWidth>imgMaxWidth) imgWidth = imgMaxWidth;
         var imgHeight = imgWidth*this.props.imageRatio;
@@ -75,29 +74,57 @@ var ImageCell = React.createClass({
     getDefaultProps: function(){
         return{
             src:'http://placehold.it/200x200',
+            href: '#',
             text: ''
         };
     },
+    onMouseEnterHandler: function(event){
+        this.refs.overLayer.getDOMNode().style.opacity = 1;
+    },
+    onMouseLeaveHandler: function(event){
+        this.refs.overLayer.getDOMNode().style.opacity = 0;
+    },
     render: function(){
+        var wrapStyle = {
+            position: "absolute",
+            left: this.props.position.x,
+            top: this.props.position.y,
+            width: this.props.width,
+            height: this.props.height,
+
+            WebkitTransitionDuration: '0.8s',
+            MozTransitionDuration: '0.8s',
+            OTransitionDuration: '0.8s',
+            transitionDuration: '0.8s',
+
+            WebkitTransitionProperty: ['top','left','width','height'],
+            MozTransitionProperty: ['top','left','width','height'],
+            OkitTransitionProperty: ['top','left','width','height'],
+            transitionProperty: ['top','left','width','height']
+
+        };
         var imgProps = {
             src: this.props.src,
-            width: this.props.width,
-            height: this.props.height
+            width: '100%',
+            height: '100%'
+
         };
         var overLayerStyle = {
+            WebkitTransition: 'opacity 0.5s ease-in-out',
+            MozTransition: 'opacity 0.5s ease-in-out',
+            OTransition: 'opacity 0.5s ease-in-out',
+            transition: 'opacity 0.5s ease-in-out',
+            opacity: 0
+        };
+        var shadowStyle = {
             backgroundColor: 'black',
             position: 'absolute',
             bottom: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
+            width: this.props.width,
+            height: this.props.height,
             opacity: 0.4,
             filter: 'alpha(opacity=40)'
-        };
-        var wrapStyle = {
-            position: "absolute",
-            left: this.props.position.x,
-            top: this.props.position.y
         };
         var captionStyle = {
             position: 'absolute',
@@ -107,13 +134,26 @@ var ImageCell = React.createClass({
         var titleStyle = {
             color: 'white'
         };
+        var linkStyle = {
+            position: 'absolute',
+            width: this.props.width,
+            height: this.props.height,
+            bottom: 0,
+            left: 0
+        };
         return(
-            <div style={wrapStyle}>
+            <div style={wrapStyle}
+                 onMouseEnter={this.onMouseEnterHandler}
+                 onMouseLeave={this.onMouseLeaveHandler}>
                 <img {...imgProps}/>
-                <div style={overLayerStyle}></div>
-                <div style={captionStyle}>
-                    <p style={titleStyle}>{this.props.title}</p>
-                    <p>{this.props.subtitle}</p>
+                <div ref='overLayer' style={overLayerStyle}>
+                    <div style={shadowStyle}></div>
+                    <div style={captionStyle}>
+                        <p style={titleStyle}>{this.props.title}</p>
+                        <p>{this.props.subtitle}</p>
+                    </div>
+                    <a href={this.props.href}
+                       style={linkStyle}></a>
                 </div>
             </div>
         );
