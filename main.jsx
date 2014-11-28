@@ -53,7 +53,7 @@ var ImageGrid = React.createClass({
             var component =  <ImageCell {...imageProps} {...data[k]}/>;
             imageList.push(component);
         };
-        var gridHeightStyle
+        var gridHeightStyle;
         if(gridHeight ==='auto')
             gridHeightStyle = imgHeight*Math.ceil(data.length/numColumns);
         else
@@ -106,7 +106,7 @@ var ImageCell = React.createClass({
     },
     render: function(){
         var wrapStyle = {
-            position: "absolute",
+            position: 'absolute',
             left: (this.isMounted()?this.props.position.x:0),
             top: this.props.position.y,
             width: this.props.width,
