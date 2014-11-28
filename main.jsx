@@ -138,7 +138,12 @@ var ImageCell = React.createClass({
             left: '5%'
         };
         var titleStyle = {
-            color: 'white'
+            color: 'white',
+            fontSize: 16
+        };
+        var subtitleStyle = {
+            color: 'white',
+            fontSize: 10
         };
         var linkStyle = {
             position: 'absolute',
@@ -156,7 +161,7 @@ var ImageCell = React.createClass({
                     <div style={shadowStyle}></div>
                     <div style={captionStyle}>
                         <p style={titleStyle}>{this.props.title}</p>
-                        <p>{this.props.subtitle}</p>
+                        <p style={subtitleStyle}>{this.props.subtitle}</p>
                     </div>
                     <a href={this.props.href}
                        style={linkStyle}></a>
