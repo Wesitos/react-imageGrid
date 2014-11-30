@@ -6,16 +6,41 @@
     <title>Image grid example</title>
   </head>
   <body>
-    <div id="sideBar"></div>
    <div id="container"></div>
+
    <script type="text/jsx">
     var request = new XMLHttpRequest();
     request.open('GET', 'data.json', true);
     request.onload = function() {
       if (this.status >= 200 && this.status < 400){
         var data = JSON.parse(this.response);
-        React.render(<ImageGrid data={data} width={800} height={1000}
-                                imageMaxWidth={300} imageMinWidth={200}/>,
+          var GridContainer = React.createClass({
+              getInitialState: function(){
+                  return{
+                      width: this.props.width
+                  }
+              },
+              resizeCallback: function(event){
+                  var container = this.refs.container.getDOMNode();
+                  var rect = container.getBoundingClientRect();
+                  this.setState({width: rect.width});
+              },
+              componentDidMount: function(){
+                  var self = this;
+                  window.addEventListener('resize', this.resizeCallback);
+              },
+              render: function(){
+                  return(
+                      <div ref='container'>
+                          <ImageGrid data={data}
+                                     width={this.state.width}
+                                     imageMaxWidth={400} imageMinWidth={200}/>
+                      </div>
+                  );
+              }
+          });
+        React.render(<GridContainer data={data} width={800} height='auto'
+                                imageMaxWidth={400} imageMinWidth={200}/>,
                      document.getElementById("container"));
       };
     };
