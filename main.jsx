@@ -91,7 +91,9 @@ var ImageCell = React.createClass({
         return{
             src:'http://placehold.it/200x200',
             href: '#',
-            text: ''
+            text: '',
+            shadowColor: undefined,
+            shadowOpacity: undefined
         };
     },
     onMouseEnterHandler: function(event){
@@ -110,54 +112,27 @@ var ImageCell = React.createClass({
             left: (this.isMounted()?this.props.position.x:0),
             top: this.props.position.y,
             width: this.props.width,
-            height: this.props.height,
-
-            WebkitTransitionDuration: '0.8s',
-            MozTransitionDuration: '0.8s',
-            OTransitionDuration: '0.8s',
-            transitionDuration: '0.8s',
-
-            WebkitTransitionProperty: ['top','left','width','height'],
-            MozTransitionProperty: ['top','left','width','height'],
-            OkitTransitionProperty: ['top','left','width','height'],
-            transitionProperty: ['top','left','width','height']
-
+            height: this.props.height
         };
         var imgProps = {
             src: this.props.src,
             width: '100%',
             height: '100%'
-
         };
         var overLayerStyle = {
-            WebkitTransition: 'opacity 0.5s ease-in-out',
-            MozTransition: 'opacity 0.5s ease-in-out',
-            OTransition: 'opacity 0.5s ease-in-out',
-            transition: 'opacity 0.5s ease-in-out',
             opacity: 0
         };
         var shadowStyle = {
-            backgroundColor: 'black',
+            backgroundColor: this.props.shadowColor,
             position: 'absolute',
             bottom: 0,
             left: 0,
             width: this.props.width,
             height: this.props.height,
-            opacity: 0.6,
-            filter: 'alpha(opacity=60)'
+            opacity: this.props.shadowOpacity
         };
         var captionStyle = {
-            position: 'absolute',
-            bottom: '5%',
-            left: '5%'
-        };
-        var titleStyle = {
-            color: 'white',
-            fontSize: 16
-        };
-        var subtitleStyle = {
-            color: 'white',
-            fontSize: 10
+            position: 'absolute'
         };
         var linkStyle = {
             position: 'absolute',
@@ -167,15 +142,19 @@ var ImageCell = React.createClass({
             left: 0
         };
         return(
-            <div style={wrapStyle}
+            <div className='ImageGridCell'
+                 style={wrapStyle}
                  onMouseEnter={this.onMouseEnterHandler}
                  onMouseLeave={this.onMouseLeaveHandler}>
                 <img {...imgProps}/>
-                <div ref='overLayer' style={overLayerStyle}>
-                    <div style={shadowStyle}></div>
-                    <div style={captionStyle}>
-                        <p style={titleStyle}>{this.props.title}</p>
-                        <p style={subtitleStyle}>{this.props.subtitle}</p>
+                <div className='imageGridOverLayer'
+                     ref='overLayer'
+                     style={overLayerStyle}>
+                    <div className='imageGridShadow'
+                         style={shadowStyle}></div>
+                    <div className='imageGridCaption' style={captionStyle}>
+                        <p className='imageGridCaptionTitle'>{this.props.title}</p>
+                        <p className='imageGridCaptionSubtitle'>{this.props.subtitle}</p>
                     </div>
                     <a href={this.props.href}
                        style={linkStyle}></a>
