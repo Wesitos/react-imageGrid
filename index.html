@@ -39,9 +39,11 @@
                   );
               }
           });
-        React.render(<GridContainer data={data} width={800} height='auto'
-                                imageMaxWidth={400} imageMinWidth={200}/>,
-                     document.getElementById("container"));
+          var container = document.getElementById("container");
+          var rect = container.getBoundingClientRect();
+              React.render(<GridContainer data={data} width={rect.width} height='auto'
+                                          imageMaxWidth={400} imageMinWidth={200}/>,
+                           container);
       };
     };
     request.send();
