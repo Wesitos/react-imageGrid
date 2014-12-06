@@ -1,0 +1,38 @@
+.imageGridCell{
+    -webkit-transition-property: top, left, width, height;
+    -moz-transition-property: top, left, width, height;
+    -o-transition-property: top, left, width, height;
+    transition-property: top, left, width, height;
+
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+
+.imageGridOverLayer{
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.imageGridShadow{
+    opacity: 0.6;
+    background-color: black
+}
+
+.imageGridCaption{
+    bottom: 0;
+    left: 10;
+}
+
+.imageGridCaptionTitle{
+    color: white;
+    fontsize: 16;
+}
+
+.imageGridCaptionSubtitle{
+    color: white;
+    fontsize: 10;
+}
